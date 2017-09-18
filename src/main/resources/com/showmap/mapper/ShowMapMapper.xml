@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.showmap.mapper.ShowMapMapper">
+    <select id="getZoneList" parameterType="param" resultType="zone" >
+        <![CDATA[
+            /* 충남코드조회 */
+            SELECT Z.COUNTRY_CODE as countryCode
+                   ,Z.CODE as code
+                   ,Z.NAME as name
+                   ,Z.START_TIME as startTime
+                   ,Z.END_TIME as endTime
+                   ,Z.TYPE as type
+            FROM RD_ZONE Z
+            WHERE Z.CODE like 'KOR44%' AND Z.CODE like '%00000' AND NOT Z.CODE like '%00000000' AND Z.END_TIME IS NULL;
+
+        ]]>
+    </select>
+
+    <select id="getProjectStatusList" parameterType="param" resultType="projectStatus" >
+        <![CDATA[
+            /* 서산시 사업현황 */
+            SELECT  SUBSTR(Z.CODE,1,11) code     /* 행정구역코드 */
+                    ,SUBSTRING_INDEX((SELECT NAME FROM RD_ZONE WHERE CODE = concat(SUBSTR(Z.CODE,1,11),'00')),' ', -1) zoneName /* 행정구역명 */
+                    ,COUNT(1) totalBusiness
+                    ,sum(if(u.BUSINESS_NAME = '마을학교',1,0)) as businessName1
+                    ,sum(if(u.BUSINESS_NAME = '현장포럼',1,0)) businessName2
+                    ,sum(if(u.BUSINESS_NAME = '우수마을',1,0)) businessName3
+                    ,sum(if(u.BUSINESS_NAME = '선행사업',1,0)) businessName4
+                    ,sum(if(u.BUSINESS_NAME = '창조적_경관생태',1,0)) businessName5
+                    ,sum(if(u.BUSINESS_NAME = '창조적_소득체험',1,0)) businessName6
+                    ,sum(if(u.BUSINESS_NAME = '창조적_문화복지',1,0)) businessName7
+                    ,sum(if(u.BUSINESS_NAME = '창조적_마을종합',1,0)) businessName8
+                    ,sum(if(u.BUSINESS_NAME = '권역단위종합개발',1,0)) businessName9
+                    ,sum(if(u.BUSINESS_NAME = '면소재지정비',1,0)) businessName10
+                    ,sum(if(u.BUSINESS_NAME = '읍소재지정비',1,0)) businessName11
+                    ,sum(if(u.BUSINESS_NAME = '중심지활성화(선도)',1,0)) businessName12
+                    ,sum(if(u.BUSINESS_NAME = '중심지활성화(일반)',1,0)) businessName13
+                    ,sum(if(u.BUSINESS_NAME = '농촌체험휴양마을',1,0)) businessName14
+                    ,sum(if(u.BUSINESS_NAME = '농촌인성학교',1,0)) businessName15
+            FROM RD_PROJECT_UNIT u
+                INNER JOIN RD_VILLAGE V ON u.VILLAGE_NAME = V.NAME
+                INNER JOIN RD_ZONE Z ON V.ZONE_CODE = Z.CODE
+            WHERE Z.CODE like #{code} /* 충남코드입력(KOR+5자리) */
+            GROUP BY SUBSTR(Z.CODE,1,11)
+
+        ]]>
+    </select>
+
+</mapper>

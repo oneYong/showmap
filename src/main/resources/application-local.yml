@@ -1,0 +1,39 @@
+project:
+  base-resource-dir: classpath:/
+
+mybatis:
+  configPath: META-INF/mybatis/mybatis.xml
+
+dataSource:
+  driverClassName: net.sf.log4jdbc.DriverSpy
+  url: jdbc:log4jdbc:mysql://neutti.ctkrssljwiqr.ap-northeast-2.rds.amazonaws.com/neutti
+  username: neutti
+  password: qwerasdf
+  testOnBorrow: true
+  validationQuery: SELECT 1
+
+server:
+  port: 8099
+  error:
+    whitelabel:
+      enabled: false
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 100MB
+  thymeleaf:
+    prefix: ${project.base-resource-dir}templates/
+    ## 개발모드
+    cache: false
+  resources:
+    static-locations: ${project.base-resource-dir}static/
+    ## 개발모드
+    cache-period: 0
+
