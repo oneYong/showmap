@@ -13,7 +13,7 @@ dataSource:
   validationQuery: SELECT 1
 
 server:
-  port: 8099
+  port: 8090
   error:
     whitelabel:
       enabled: false

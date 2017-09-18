@@ -6,25 +6,72 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Scheduling Server</title>
+    <title>Dashboard</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.css}" />
+    <!-- Custom CSS -->
+    <link th:href="@{/static/css/showmap.css}" rel="stylesheet"/>
 </head>
 <body>
-<div class="container">
+<div id="wrapper">
     <div class="row">
-
+        <div class="col-lg-12">
+            <div class="select-box">
+                <span>충남 코드 : </span>
+                <select id="selectBox" class="form-control" style="width:auto;display: inline">
+                </select>
+            </div>
+        </div>
     </div>
-
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="map">
+                지도영역
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="list">
+                <div id="showList"></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="chart">
+                <div id="showChart"></div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
 <script th:src="@{/webjars/jquery/3.1.1/jquery.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.js}"></script>
 <th:block>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
+            $(function(){
+                var zone_list = [[${zoneList}]];
+                initSelectBox(zone_list);
 
+
+                $("#selectBox").change(function(){
+                    var value = $("#selectBox option:selected").val();
+                    if(value != "0"){
+                        $("#showList").load("/dashboard/showlist?code="+value,null, function() {
+                        });
+                        $("#showChart").load("/dashboard/showchart?code="+value,null, function() {
+                        });
+                    }
+                });
+            });
+
+            function initSelectBox(zone_list){
+                var select_box_html = []
+                select_box_html.push('<option value="0">--선택--</option>');
+                for(var i = 0; i < zone_list.length; i++){
+                    select_box_html.push('<option value="'+zone_list[i].code+'">'+zone_list[i].name+'</option>');
+                }
+                $("#selectBox").html(select_box_html.join(""));
+            }
         /*]]>*/
     </script>
 </th:block>

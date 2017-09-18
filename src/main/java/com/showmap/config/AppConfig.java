@@ -7,6 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.config.annotation.*;
 
 /**
@@ -15,6 +20,12 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 @EnableWebMvc
 @EnableScheduling
+@ComponentScan(basePackages = {"com.showmap"}, useDefaultFilters = false,
+        includeFilters = { @ComponentScan.Filter(Controller.class),
+                @ComponentScan.Filter(ControllerAdvice.class),
+                @ComponentScan.Filter(Repository.class),
+                @ComponentScan.Filter(Component.class),
+                @ComponentScan.Filter(Service.class)})
 @ConfigurationProperties(locations="classpath:application.yml", prefix = "spring.resources")
 public class AppConfig extends WebMvcConfigurerAdapter {
     private String staticLocations;
