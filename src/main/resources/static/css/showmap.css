@@ -14,13 +14,35 @@ body {
 #wrapper {
   width: 100%;
   text-align : center;
-  margin: 20px !important;
+
   background-color: white;
 }
 
 #wrapper .select-box{
-  margin-bottom: 50px;
+  margin: 50px;
 }
+
+#wrapper .map{
+  background-color: antiquewhite;
+  margin: 10px 10px;
+  height:100px;
+}
+#wrapper .chart{
+  margin: 10px 10px;
+  font-size:11px;
+}
+
+#wrapper .list{
+  margin: 30px 30px;
+  font-size:11px;
+}
+
+#wrapper .cnts_tbl thead th{border-bottom:2px solid #676767;text-align:center;font-size:11px;color:#1b1b1b;font-weight:700;font-family:"Myriad Pro";padding-bottom:5px;}
+#wrapper .cnts_tbl tbody th{border-bottom:1px solid #e8e8e8;border-left:1px solid #e8e8e8;text-align:left;padding-left:5%;font-family: 'Nanum Gothic',sans-serif;font-weight:700;}
+#wrapper .cnts_tbl td{border-bottom:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:10px 0;text-align:center;color:#929292;font-weight:700;}
+#wrapper .cnts_tbl .txt_c_org{color:#fd6d31;}
+#wrapper .cnts_tbl .txt_c_red{color:#df0745;}
+#wrapper .cnts_tbl .txt_c_ylw{color:#fbc733;}
 
 #page-wrapper {
   padding: 0 15px;

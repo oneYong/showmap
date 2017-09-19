@@ -45,9 +45,11 @@
 </div>
 <script th:src="@{/webjars/jquery/3.1.1/jquery.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <th:block>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
+            Chart.defaults.global.legend.display = false;
             $(function(){
                 var zone_list = [[${zoneList}]];
                 initSelectBox(zone_list);

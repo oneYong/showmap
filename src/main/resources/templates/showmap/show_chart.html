@@ -1,11 +1,83 @@
 <html xmlns= "http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-차트 입니다.
+<div id="projectChartLegend" ></div>
+<canvas id="projectChart" height="115" width="300" ></canvas>
 
 <th:block>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
+        // to array
+        var chart_temp_label = [[${chartLabel}]];
+        var chart_label = new Array();
+        for(var i = 0; i < chart_temp_label.split(",").length; i++){
+            chart_label[i] = chart_temp_label.split(",")[i];
+        }
+
+        // to object
+        var chart_data = eval("("+[[${chartData}]]+")");
+
+        var project_chart = new Chart(document.getElementById("projectChart"), {
+            type: 'bar',
+            data: {
+                labels: chart_label,
+                datasets: chart_data
+            },
+            options: {
+                scales: {
+                    xAxes:[{
+                        stacked : true
+                    }],
+                    yAxes: [{
+                        stacked : true,
+                        display: true,
+                        ticks: {
+                            suggestedMin: 0, // minimum will be 0, unless there is a lower value.
+                            // OR //
+                            beginAtZero: true, // minimum value will be 0.
+                            callback: function (value, index, values) {
+                                if(parseInt(value) == value)
+                                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+                            }
+                        }
+                    }]
+                },
+                legendCallback: function(chart) {
+                    // legend cell 갯수
+                    var cell_count = 5;
+
+                    var html = [];
+                    html.push('<table style="margin:0 auto; ">');
+                    html.push('<tbody>');
+
+                    for (var i=0; i<chart.data.datasets.length; i++) {
+
+                        if((i+1) % cell_count == 1)
+                            html.push('<tr>');
+
+                        html.push('<td align="left" style="padding-right: 20px;">'
+                            + '<span style="display: inline-block;width:12px;height:12px;margin-right: 5px;background-color:'+ chart.data.datasets[i].backgroundColor + '"></span>'
+                            + chart.data.datasets[i].label +'</td>');
+
+                        if((i+1) % cell_count == 0)
+                            html.push('</tr>');
+
+                    }
+
+
+                    html.push('</tbody>');
+                    html.push('</table>');
+
+                    return html.join("");
+                },
+                legend: {
+                    display: false
+                }
+            }
+
+        });
+
+        document.getElementById('projectChartLegend').innerHTML = project_chart.generateLegend();
         /*]]>*/
     </script>
 </th:block>

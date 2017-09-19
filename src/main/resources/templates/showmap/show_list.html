@@ -1,11 +1,69 @@
 <html xmlns= "http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-리스트 입니다.
+<div id="projectList" ></div>
 
 <th:block>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
+        var project_status_list = [[${projectStatusList}]];
+
+        makeList(project_status_list);
+
+        function makeList(list){
+            if(list.length == 0) return;
+
+            var html = [];
+            html.push('<table class="cnts_tbl">');
+            html.push('<thead> <tr>');
+
+            html.push('<th>읍면</th>');
+            html.push('<th>마을학교</th>');
+            html.push('<th>현장포럼</th>');
+            html.push('<th>우수마을</th>');
+            html.push('<th>선행사업</th>');
+            html.push('<th>창조적경관생태</th>');
+            html.push('<th>창조적소득체험</th>');
+            html.push('<th>창조적문화복지</th>');
+            html.push('<th>창조적마을종합</th>');
+            html.push('<th>권역단위</th>');
+            html.push('<th>면소재지정비</th>');
+            html.push('<th>읍소재지정비</th>');
+            html.push('<th>중심지선도</th>');
+            html.push('<th>중심지일반</th>');
+            html.push('<th>농촌체험</th>');
+            html.push('<th>농촌인성</th>');
+            html.push('</tr></thead>');
+            html.push('<tbody>');
+
+            for (var i=0; i< list.length; i++) {
+
+                html.push('<tr>');
+                html.push('<td>' + list[i].zoneName +'</td>');
+                html.push('<td >'+list[i].businessName1+'</td>');
+                html.push('<td >'+list[i].businessName2+'</td>');
+                html.push('<td >'+list[i].businessName3+'</td>');
+                html.push('<td >'+list[i].businessName4+'</td>');
+                html.push('<td >'+list[i].businessName5+'</td>');
+                html.push('<td >'+list[i].businessName6+'</td>');
+                html.push('<td >'+list[i].businessName7+'</td>');
+                html.push('<td >'+list[i].businessName8+'</td>');
+                html.push('<td >'+list[i].businessName9+'</td>');
+                html.push('<td >'+list[i].businessName10+'</td>');
+                html.push('<td >'+list[i].businessName11+'</td>');
+                html.push('<td >'+list[i].businessName12+'</td>');
+                html.push('<td >'+list[i].businessName13+'</td>');
+                html.push('<td >'+list[i].businessName14+'</td>');
+                html.push('<td >'+list[i].businessName15+'</td>');
+                html.push('</tr>');
+
+            }
+
+            html.push('</tbody>');
+            html.push('</table>');
+
+            document.getElementById('projectList').innerHTML =  html.join("");
+        }
         /*]]>*/
     </script>
 </th:block>

@@ -2,7 +2,10 @@ package com.showmap.web;
 
 
 import com.showmap.mapper.ShowMapMapper;
+import com.showmap.service.MakeChartService;
+import com.showmap.service.ShowMapService;
 import com.showmap.vo.Param;
+import com.showmap.vo.ProjectStatus;
 import com.showmap.vo.Zone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,12 @@ public class DashboardController {
     @Autowired
     private ShowMapMapper showMapMapper;
 
+    @Autowired
+    private MakeChartService makeChartService;
+
+    @Autowired
+    private ShowMapService showMapService;
+
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String dashboard(Model model) throws Exception
     {
@@ -34,19 +43,30 @@ public class DashboardController {
     @RequestMapping(value="/dashboard/showlist", method = RequestMethod.GET)
     public String showlist(Model model, @ModelAttribute("Param") Param param) throws Exception
     {
-        System.out.println("---showlist---");
-        System.out.println(param.getCode());
+        setParameter(param);
+        List<ProjectStatus> projectStatusList = showMapService.getProjectStatusList(param);
 
+        model.addAttribute("projectStatusList",projectStatusList);
         return "showmap/show_list";
     }
 
     @RequestMapping(value="/dashboard/showchart", method = RequestMethod.GET)
     public String showchart(Model model, @ModelAttribute("Param") Param param) throws Exception
     {
+        setParameter(param);
 
-        System.out.println("---showchart---");
-        System.out.println(param.getCode());
+        String chartLabel = makeChartService.getChartLabel(param);
+        String chartData = makeChartService.getChartData(param);
+
+        model.addAttribute("chartLabel",chartLabel);
+        model.addAttribute("chartData",chartData);
 
         return "showmap/show_chart";
+    }
+
+    private void setParameter(@ModelAttribute("Param") Param param) {
+        String code = param.getCode();
+        code = code.substring(0,8);
+        param.setCode(code + "%");
     }
 }

@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.showmap.mapper.ShowMapMapper">
+
     <select id="getZoneList" parameterType="param" resultType="zone" >
         <![CDATA[
             /* 충남코드조회 */
@@ -22,24 +23,24 @@
     <select id="getProjectStatusList" parameterType="param" resultType="projectStatus" >
         <![CDATA[
             /* 서산시 사업현황 */
-            SELECT  SUBSTR(Z.CODE,1,11) code     /* 행정구역코드 */
-                    ,SUBSTRING_INDEX((SELECT NAME FROM RD_ZONE WHERE CODE = concat(SUBSTR(Z.CODE,1,11),'00')),' ', -1) zoneName /* 행정구역명 */
-                    ,COUNT(1) totalBusiness
-                    ,sum(if(u.BUSINESS_NAME = '마을학교',1,0)) as businessName1
-                    ,sum(if(u.BUSINESS_NAME = '현장포럼',1,0)) businessName2
-                    ,sum(if(u.BUSINESS_NAME = '우수마을',1,0)) businessName3
-                    ,sum(if(u.BUSINESS_NAME = '선행사업',1,0)) businessName4
-                    ,sum(if(u.BUSINESS_NAME = '창조적_경관생태',1,0)) businessName5
-                    ,sum(if(u.BUSINESS_NAME = '창조적_소득체험',1,0)) businessName6
-                    ,sum(if(u.BUSINESS_NAME = '창조적_문화복지',1,0)) businessName7
-                    ,sum(if(u.BUSINESS_NAME = '창조적_마을종합',1,0)) businessName8
-                    ,sum(if(u.BUSINESS_NAME = '권역단위종합개발',1,0)) businessName9
-                    ,sum(if(u.BUSINESS_NAME = '면소재지정비',1,0)) businessName10
-                    ,sum(if(u.BUSINESS_NAME = '읍소재지정비',1,0)) businessName11
-                    ,sum(if(u.BUSINESS_NAME = '중심지활성화(선도)',1,0)) businessName12
-                    ,sum(if(u.BUSINESS_NAME = '중심지활성화(일반)',1,0)) businessName13
-                    ,sum(if(u.BUSINESS_NAME = '농촌체험휴양마을',1,0)) businessName14
-                    ,sum(if(u.BUSINESS_NAME = '농촌인성학교',1,0)) businessName15
+            SELECT  SUBSTR(Z.CODE,1,11) as code     /* 행정구역코드 */
+                    ,SUBSTRING_INDEX((SELECT NAME FROM RD_ZONE WHERE CODE = concat(SUBSTR(Z.CODE,1,11),'00')),' ', -1) as zoneName /* 행정구역명 */
+                    ,COUNT(1) as totalBusiness
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 1),1,0)) as businessName1
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 2),1,0)) as businessName2
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 3),1,0)) as businessName3
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 4),1,0)) as businessName4
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 5),1,0)) as businessName5
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 6),1,0)) as businessName6
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 7),1,0)) as businessName7
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 8),1,0)) as businessName8
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 9),1,0)) as businessName9
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 10),1,0)) as businessName10
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 11),1,0)) as businessName11
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 12),1,0)) as businessName12
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 13),1,0)) as businessName13
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 14),1,0)) as businessName14
+                    ,sum(if(u.BUSINESS_NAME = (select name from RD_BUSINESS where name_code = 15),1,0)) as businessName15
             FROM RD_PROJECT_UNIT u
                 INNER JOIN RD_VILLAGE V ON u.VILLAGE_NAME = V.NAME
                 INNER JOIN RD_ZONE Z ON V.ZONE_CODE = Z.CODE
