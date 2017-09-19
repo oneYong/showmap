@@ -31,12 +31,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
             <div class="list">
                 <div id="showList"></div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <div class="chart">
                 <div id="showChart"></div>
             </div>
@@ -59,9 +59,10 @@
                     var value = $("#selectBox option:selected").val();
                     if(value != "0"){
                         $("#showList").load("/dashboard/showlist?code="+value,null, function() {
+                            $("#showChart").load("/dashboard/showchart?code="+value,null, function() {
+                            });
                         });
-                        $("#showChart").load("/dashboard/showchart?code="+value,null, function() {
-                        });
+
                     }
                 });
             });

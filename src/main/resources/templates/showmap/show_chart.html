@@ -2,7 +2,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <div id="projectChartLegend" ></div>
-<canvas id="projectChart" height="115" width="300" ></canvas>
+<canvas id="projectChart" height="200" width="300" ></canvas>
 
 <th:block>
     <script type="text/javascript" th:inline="javascript">
@@ -78,6 +78,9 @@
         });
 
         document.getElementById('projectChartLegend').innerHTML = project_chart.generateLegend();
+
+
+        $("#projectChart").height($("#listTbl").height() - 100);
         /*]]>*/
     </script>
 </th:block>
