@@ -22,20 +22,24 @@ body {
   margin: 50px;
 }
 
+/*
+margin : top right bottom left
+*/
 #wrapper .map{
-  background-color: antiquewhite;
-  margin: 10px 10px;
-  height:100px;
+  background-color: #5cb85c;
+  margin : 10px 250px 10px 200px;
+  height:700px;
 }
 #wrapper .chart{
-  margin-top:100px;
+  margin-top:40px;
   font-size:11px;
   float:left;
 }
 
 #wrapper .list{
-  margin: 30px 30px;
+  margin-top:40px;
   font-size:11px;
+  float:right;
 }
 
 #wrapper .cnts_tbl thead th{border-bottom:2px solid #676767;text-align:center;font-size:11px;color:#1b1b1b;font-weight:700;font-family:"Myriad Pro";padding-bottom:5px;}
@@ -143,3 +147,4 @@ table.dataTable thead .sorting:after {
 @media (max-width: 767px) {
 
 }
+
