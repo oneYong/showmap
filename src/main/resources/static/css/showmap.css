@@ -27,8 +27,8 @@ margin : top right bottom left
 */
 #wrapper .map{
   background-color: #5cb85c;
-  margin : 10px 250px 10px 200px;
-  height:700px;
+  margin : 10px 250px 10px 180px;
+  height:100px;
 }
 #wrapper .chart{
   margin-top:40px;
@@ -42,7 +42,7 @@ margin : top right bottom left
   float:right;
 }
 
-#wrapper .cnts_tbl thead th{border-bottom:2px solid #676767;text-align:center;font-size:11px;color:#1b1b1b;font-weight:700;font-family:"Myriad Pro";padding-bottom:5px;}
+#wrapper .cnts_tbl thead th{border-bottom:2px solid #676767;text-align:center;font-size:12px;color:#1b1b1b;font-weight:700;font-family:"Myriad Pro";padding-bottom:10px;width:58px;}
 #wrapper .cnts_tbl tbody th{border-bottom:1px solid #e8e8e8;border-left:1px solid #e8e8e8;text-align:left;padding-left:5%;font-family: 'Nanum Gothic',sans-serif;font-weight:700;}
 #wrapper .cnts_tbl td{border-bottom:1px solid #e8e8e8;border-right:1px solid #e8e8e8;padding:10px 0;text-align:center;color:#929292;font-weight:700;}
 #wrapper .cnts_tbl .txt_c_org{color:#fd6d31;}
